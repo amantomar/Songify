@@ -1,0 +1,264 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Songify </title>
+
+    <link rel="stylesheet" type="text/css" href="font-awesome.css">
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+       <link href="css/bootstrap.min.css" rel="stylesheet"><!--source of bootstrap css file-->
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+      <!-- Code for the login page -->
+        <section class="welcome-screen">
+            <h1> Welcome to Songify </h1>
+            <h3> Enter name to access your account </h3>
+            <div class="input-wrapper">
+              <!-- Form to input username,email & password of the user -->
+              <form>
+                      <span>Name</span><input type="text" placeholder="Username" id="text3" /><br /><br />
+                      <span>Email</span><input type="email" placeholder="test@acadview.com" id="text1" /><br /><br />
+                      <span>Password</span><input type="password" placeholder="JavascriptRocks" id="text2" /><br /><br />
+                       <input id="go" type="button" value="Login"  onclick="javascript:validate()" />
+                </form>
+
+                <script type="text/javascript">
+                        function validate()
+                        {
+                            if(   document.getElementById("text1").value == "test@acadview.com"
+                               && document.getElementById("text2").value == "JavascriptRocks"  && (document.getElementById("text3").value.length) >3 )
+                            {
+                              $('.welcome-screen').addClass('hidden');
+                                var name = $('#text3').val();
+                                var message = "Welcome back, " + name;
+                                $('.main .user-name').text(message);
+                            }
+                            else
+                            {
+                                alert( "Wrong Credentials!!  Name must be longer then 3 characters  Email:test@acadview.com  Password:JavascriptRocks " );
+
+                            }
+                        }
+</script>
+<!-- Ending of code of login page -->
+            </div>
+          </section><!--ending of section welcome screen-->
+
+        <div class="main ">
+
+              <nav class="navbar navbar-default">
+                <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- Navbar for header of the music player -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <form class="navbar-form navbar-left">
+
+        <div class="form-group">
+          <ul class="nav nav-pills">
+                <li role="presentation" class="active" id="real"><a href="#">Home</a></li><!--Music player page-->
+          <input type="text" class="form-control" placeholder="Search">
+          </ul>
+        </div>
+
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="right floated user-name"> </span> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav><!--/.navbar navbar-default-->
+            <!-- </header> -->
+              <div class="row">
+              <div class="col-md-3" id="col-3">
+            <ul class="nav nav-pills nav-stacked">
+             <li role="presentation"><a href="#">Recently Played</a></li>
+             <li role="presentation" ><a href="#">Songs</a></li>
+             <li role="presentation"><a href="#">Albums</a></li>
+             <li role="presentation"><a href="#">Artists</a></li>
+             <li role="presentation"><a href="#">Stations</a></li>
+             <li role="presentation"><a href="#">Select File</a></li>
+
+
+<!-- Code to add a local song file to the app and  play it -->
+             <input type="file" id="input"/>
+             <audio id="sound"></audio>
+             <script>
+             input.onchange = function(){
+  var sound = document.getElementById('sound');
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    sound.src = this.result;
+    sound.controls = false;
+    sound.play();
+    $('.current-song-image').attr('src', 'img/' + 'images.jpg');
+    $('.current-song-name').text("Unknown");
+    $(".current-song-album").text("Unknown");
+    $('.play-icon').removeClass('fa-play').addClass('fa-pause');
+
+    };
+  reader.readAsDataURL(this.files[0]);
+}
+</script>
+
+           </ul>
+         </div><!-- // End of col-md-3 div -->
+<!-- Grid for the playlist and the music player -->
+  <div class="col-md-9" id="jumbo" >
+
+           <div class="jumbotron" >
+             <h1>Songs</h1>
+             <p><a class="btn btn-primary btn-lg" href="#" role="button">PLAY</a></p>
+           </div>
+            <section class="content">
+                <audio src="song0.mp3"></audio>
+      <table id="songs"><!--Table containing all songs details and playlist-->
+                <thead class="list-headers">
+                  <td> Title </td>
+                  <td> Artist </td>
+                  <td> Album </td>
+                <td>  Duration </td>
+            </thead>
+
+        <tbody>
+          <tr class="song" id="song0">
+            <td class="song-name"> </td>
+            <td class="song-artist"></td>
+            <td class="song-album"></td>
+            <td  class="song-length"></td>
+          </tr>
+          <tr class="song" id="song1">
+            <td class="song-name"> </td>
+            <td class="song-artist"></td>
+            <td class="song-album"></td>
+            <td class="song-length"></td>
+          </tr>
+          <tr class="song" id="song2">
+            <td class="song-name"> </td>
+            <td class="song-artist"></td>
+            <td class="song-album"></td>
+            <td class="song-length"></td>
+          </tr>
+          <tr class="song" id="song3">
+            <td class="song-name"> </td>
+            <td class="song-artist"></td>
+            <td class="song-album"></td>
+            <td class="song-length"></td>
+          </tr>
+          <tr class="song" id="song4">
+            <td class="song-name"> </td>
+            <td class="song-artist"></td>
+            <td class="song-album"></td>
+            <td class="song-length"></td>
+          </tr>
+        <!-- </div> -->
+      </tbody>
+    </table>
+        <div class="current-song-wrapper">
+          <img  class="current-song-image">
+          <div>
+          <p class="current-song-name"></p>
+          <p class="current-song-album"></p>
+          </div>
+        </div><!--/col-md-6 end-->
+
+    </div><!--/class="row" end-->
+
+            </section>
+
+                        <!-- <div class="col-md-3">
+                          <div class="media">
+                            <div class="media-left media-middle">
+                              <a href="#">
+                                <img class="media-object" src="..." alt="...">
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">Sarthak nigga</h4>
+                              ...
+                            </div>
+                          </div>
+
+
+                          <div class="media">
+                            <div class="media-left media-middle">
+                              <a href="#">
+                                <img class="media-object" src="..." alt="...">
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">Middle aligned media</h4>
+                              ...
+                            </div>
+                          </div
+
+                        </div><!class="col-md-3" div end-->
+                          </div>  <!-- class="main" div end -->
+  <!-- Navbar for the footer of the music player fixed navbar                         -->
+ <nav class="navbar navbar-default navbar-fixed-bottom" id="footer">
+            <footer>
+                <div class="controls">
+                    <div class="player-buttons">
+
+                        <i class="fa fa-random clickable disabled" aria-hidden="true"></i>
+                        <i class="fa fa-fast-backward clickable" aria-hidden="true"></i>
+                        <i class="fa fa-step-backward clickable " aria-hidden="true"></i>
+                        <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
+                        <i class="fa fa-step-forward clickable" aria-hidden="true"></i>
+                        <i class="fa fa-fast-forward clickable" aria-hidden="true"></i>
+                        <i class="fa fa-repeat  disabled clickable" aria-hidden="true"></i>
+                    </div>
+                    <div class="progress-wrapper">
+                        <span class="time-elapsed"> </span>
+                        <div class="player-progress">
+                            <div  class="progress-filled"> </div>
+                        </div>
+                        <span class="song-duration"></span>
+                        <!-- <div class="volume-controls">
+                     <i class="fa fa-volume-up clickable" aria-hidden="true" id="volume-toggle"></i>
+                     <input type="range" name="volume" class="player-slider" min="0" max="1" step="0.05" value="1">
+                   </div>
+                    </div> -->
+                </div><!--controls div-->
+            </footer><!--End of footer tag-->
+
+</nav>
+  </div><!-- class="wrapper" end div-->
+    <script src="jquery.js"></script><!--Source to use jquery library-->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script><!--Source for datatables-->
+    <script src="main.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+
+</body><!--End of body tag-->
+</html><!--End of html tag-->
